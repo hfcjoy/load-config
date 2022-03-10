@@ -1,1 +1,1 @@
-export {} from './typescript'
+export { useTypescriptLoader } from './typescript'

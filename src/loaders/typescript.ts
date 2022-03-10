@@ -1,24 +1,21 @@
 import type { AsyncLoader } from 'joycon'
 import esbuild from 'esbuild'
-import tmp from 'tmp'
+import vm from 'vm'
+import Module from 'module'
 
 export function useTypescriptLoader(): AsyncLoader {
   return {
     test: /\.ts/,
-    load: loadTypescriptData
+    load: compileTypescriptData
   }
 }
-
-async function loadTypescriptData(filePath: string) {}
 
 /**
  * 编译typescript代码到文件系统
  *
  * @param tsFilePath typescript文件路径
  */
-async function compileTypescriptData(
-  tsFilePath: string
-): Promise<CompileResult> {
+async function compileTypescriptData(tsFilePath: string): Promise<unknown> {
   const buildResult = await esbuild.build({
     entryPoints: [tsFilePath],
     write: false,
@@ -27,32 +24,18 @@ async function compileTypescriptData(
     target: 'node10'
   })
 
-  const result = await new Promise((resolve, reject) => {
-    tmp.file((err, path, fd, cleanupCallback) => {
-      if (err) {
-        reject(err)
-        return
-      }
+  const content = buildResult.outputFiles?.[0]?.contents
+  const contentStr = new TextDecoder('utf-8').decode(content)
 
-      resolve({
-        jsFilePath: path,
-        cleanCache: cleanupCallback
-      })
-
-      cleanupCallback()
-    })
-  })
-
-  return result as CompileResult
-}
-
-interface CompileResult {
-  /**
-   * 编译之后输出的js文件路径
-   */
-  jsFilePath: string
-  /**
-   * 拿到数据之后可以手动清除缓存
-   */
-  cleanCache: () => void
+  const container = {
+    exports: {}
+  }
+  vm.runInThisContext(Module.wrap(contentStr))(
+    container.exports,
+    require,
+    container,
+    __filename,
+    __dirname
+  )
+  return container.exports
 }
