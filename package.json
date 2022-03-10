@@ -6,7 +6,11 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "keywords": [],
+  "keywords": [
+    "load-config",
+    "find-config",
+    "search-config"
+  ],
   "license": "ISC",
   "repository": {
     "type": "git",
