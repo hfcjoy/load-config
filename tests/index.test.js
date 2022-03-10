@@ -11,4 +11,13 @@ describe('load', () => {
     })
     expect(configPath).toEqual(path.join(cwd, 'package.json'))
   })
+
+  it('load typescript config data', async () => {
+    const cwd = fixture('typescript-config')
+    const { data, path: configPath } = await loadConfig('reelup', cwd)
+    expect(data).toEqual({
+      file: 'typescript'
+    })
+    expect(configPath).toEqual(path.join(cwd, 'reelup.config.ts'))
+  })
 })

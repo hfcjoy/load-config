@@ -7,5 +7,6 @@ export default defineConfig({
   clean: true,
   minify: true,
   dts: true,
+  external: ['esbuild'],
   format: ['cjs', 'esm']
 })

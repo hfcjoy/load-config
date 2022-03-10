@@ -28,7 +28,9 @@ async function compileTypescriptData(tsFilePath: string): Promise<unknown> {
   const contentStr = new TextDecoder('utf-8').decode(content)
 
   const container = {
-    exports: {}
+    exports: {
+      default: {}
+    }
   }
   vm.runInThisContext(Module.wrap(contentStr))(
     container.exports,
@@ -37,5 +39,5 @@ async function compileTypescriptData(tsFilePath: string): Promise<unknown> {
     __filename,
     __dirname
   )
-  return container.exports
+  return container.exports.default
 }
