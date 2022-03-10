@@ -1,0 +1,34 @@
+{
+  "name": "@hfcjoy/load-config",
+  "version": "1.0.0",
+  "description": "可拓展的支持各种格式配置文件的数据加载",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hfcjoy/load-config.git"
+  },
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/hfcjoy/load-config/issues"
+  },
+  "homepage": "https://github.com/hfcjoy/load-config#readme",
+  "devDependencies": {
+    "@hfcjoy/eslint-config-typescript": "2.0.1",
+    "@types/tmp": "0.2.3",
+    "esbuild": "0.14.25",
+    "eslint": "8.10.0",
+    "joycon": "3.1.1",
+    "prettier": "2.5.1",
+    "tmp": "0.2.1",
+    "typescript": "4.6.2"
+  }
+}

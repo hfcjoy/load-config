@@ -1,0 +1,7 @@
+{
+  "extends": "@hfcjoy/typescript",
+  "rules": {
+    "no-restricted-syntax": "off",
+    "import/no-extraneous-dependencies": "off"
+  }
+}
