@@ -6,12 +6,17 @@ import * as loaders from './loaders'
  * 加载配置文件数据
  *
  * @param name 配置文件名称
+ * @param cwd 执行查询的基础路径
  * @returns 路径以及配置数据
  */
-export async function loadConfig(name: string): Promise<LoadResult> {
+export async function loadConfig(
+  name: string,
+  cwd = process.cwd()
+): Promise<LoadResult> {
   const files = generateSearchFiles(name)
 
   const joycon = new JoyCon({
+    cwd,
     files,
     ...(files.includes('package.json') ? { packageKey: name } : {})
   })

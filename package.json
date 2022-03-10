@@ -13,10 +13,22 @@
     "url": "git+https://github.com/hfcjoy/load-config.git"
   },
   "author": "",
-  "main": "index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup --dts-resolve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsup && jest"
   },
   "bugs": {
     "url": "https://github.com/hfcjoy/load-config/issues"
@@ -27,6 +39,7 @@
     "@types/node": "17.0.21",
     "esbuild": "0.14.25",
     "eslint": "8.10.0",
+    "jest": "27.5.1",
     "joycon": "3.1.1",
     "prettier": "2.5.1",
     "tsup": "5.12.0",
