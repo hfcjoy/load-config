@@ -15,7 +15,9 @@ export function useTypescriptLoader(): AsyncLoader {
  *
  * @param tsFilePath typescript文件路径
  */
-async function compileTypescriptData(tsFilePath: string): Promise<unknown> {
+export async function compileTypescriptData(
+  tsFilePath: string
+): Promise<unknown> {
   const buildResult = await esbuild.build({
     entryPoints: [tsFilePath],
     write: false,

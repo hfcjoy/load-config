@@ -1,6 +1,9 @@
 import JoyCon, { type LoadResult } from 'joycon'
 import path from 'path'
-import * as loaders from './loaders'
+import merge from 'deepmerge'
+import { exec } from 'child_process'
+import { loaders, compleFiles } from './loaders'
+import { extendKey } from './config'
 
 /**
  * 加载配置文件数据
@@ -30,10 +33,58 @@ export async function loadConfig(
     }
   }
 
-  const result = await joycon.load()
-  return result
+  const { data, path: configStartPath = '' } = await joycon.load()
+  const extendsName = data?.[extendKey]
+  if (typeof extendsName === 'string') {
+    const extendsData = await loadExtendsData(extendsName, configStartPath, {})
+    return {
+      path: configStartPath,
+      data: handleExtendsData(data, extendsData)
+    }
+  }
+
+  return {
+    path: configStartPath,
+    data
+  }
 }
 
+/**
+ * 加载继承数据
+ *
+ * @param extendsName 继承的模块名称或者配置文件路径
+ * @param configFilePath 当前具有继承属性的配置文件路径
+ * @param beforeConfigData 上一次的继承数据
+ */
+async function loadExtendsData(
+  extendsName: string,
+  configFilePath: string,
+  beforeConfigData: Record<string, unknown>
+): Promise<Record<string, unknown>> {
+  const extendsTarget = await resolveResolvePath(extendsName, configFilePath)
+  const extendsData = await compleFiles(extendsTarget)
+
+  const currentExtendsName = extendsData?.[extendKey]
+  const hasExtendConfig = typeof currentExtendsName === 'string'
+
+  const mergeData = handleExtendsData(beforeConfigData, extendsData)
+  if (hasExtendConfig) {
+    const result = await loadExtendsData(
+      currentExtendsName,
+      extendsTarget,
+      mergeData
+    )
+    return result
+  }
+  return mergeData
+}
+
+/**
+ * 生成要搜索的配置文件列表
+ *
+ * @param name 配置模块名称
+ * @returns 搜索的目标文件列表
+ */
 function generateSearchFiles(name: string) {
   const isFile = path.extname(name)
   if (isFile) return [name]
@@ -47,4 +98,48 @@ function generateSearchFiles(name: string) {
     `${name}.config.js`,
     `${name}.config.cjs`
   ]
+}
+
+/**
+ * 处理继承数据
+ *
+ * @param currentData 当前数据
+ * @param extendsData 继承的数据
+ * @returns 如果存在相同的配置项，当前数据的优先级更高
+ */
+function handleExtendsData(
+  currentData: Record<string, unknown>,
+  extendsData: Record<string, unknown>
+): Record<string, unknown> {
+  const result = merge(extendsData, currentData)
+  delete result?.[extendKey]
+  return result
+}
+
+/**
+ * 指定cwd查找模块
+ *
+ * @param moduleName 模块名称
+ * @param relativePath cwd路径
+ * @returns 模块的路径
+ */
+async function resolveResolvePath(
+  moduleName: string,
+  relativePath: string
+): Promise<string> {
+  return new Promise((resolve, reject) => {
+    exec(
+      `node -e 'console.log(require.resolve(${moduleName}))'`,
+      {
+        cwd: relativePath
+      },
+      (err, stdout, stderr) => {
+        if (err) {
+          reject(new Error(stderr))
+          return
+        }
+        resolve(stdout)
+      }
+    )
+  })
 }
