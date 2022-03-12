@@ -1,11 +1,13 @@
 import path from 'path'
 import { compileTypescriptData, useTypescriptLoader } from './typescript'
+import { compileJsonData, useJson5Loader } from './json5'
 
 /**
  * 加载器用来解析文件路径
  */
 export const loaders = {
-  useTypescriptLoader
+  useTypescriptLoader,
+  useJson5Loader
 }
 
 /**
@@ -25,6 +27,12 @@ export async function compleFiles(filePath: string) {
     case '.js': {
       const data = require(filePath)
       return data.default || data
+    }
+    case '.json':
+    case '.json5':
+    case '.jsonc': {
+      const data = await compileJsonData(filePath)
+      return data
     }
     default:
       break

@@ -1,0 +1,4 @@
+{
+  "$extends": "./item.json",
+  "target": "node8"
+}

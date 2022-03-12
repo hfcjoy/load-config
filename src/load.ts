@@ -34,18 +34,27 @@ export async function loadConfig(
   }
 
   const { data, path: configStartPath = '' } = await joycon.load()
-  const extendsName = data?.[extendKey]
+  let cleanData = data
+
+  // 清理数据 1. package.json包含了外层数据
+  if (path.basename(configStartPath) === 'package.json') cleanData = data[name]
+
+  const extendsName = cleanData?.[extendKey]
   if (typeof extendsName === 'string') {
-    const extendsData = await loadExtendsData(extendsName, configStartPath, {})
+    const extendsData = await loadExtendsData(
+      extendsName,
+      configStartPath,
+      cleanData
+    )
     return {
       path: configStartPath,
-      data: handleExtendsData(data, extendsData)
+      data: extendsData
     }
   }
 
   return {
-    path: configStartPath,
-    data
+    data: cleanData,
+    path: configStartPath
   }
 }
 
@@ -129,16 +138,16 @@ async function resolveResolvePath(
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     exec(
-      `node -e 'console.log(require.resolve(${moduleName}))'`,
+      `node -e 'console.log(require.resolve("${moduleName}"))'`,
       {
-        cwd: relativePath
+        cwd: path.dirname(relativePath)
       },
       (err, stdout, stderr) => {
         if (err) {
           reject(new Error(stderr))
           return
         }
-        resolve(stdout)
+        resolve(stdout.trim())
       }
     )
   })
