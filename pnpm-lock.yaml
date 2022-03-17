@@ -10,7 +10,7 @@ specifiers:
   jest: 27.5.1
   joycon: 3.1.1
   json5: 2.2.0
-  prettier: 2.5.1
+  prettier: 2.6.0
   tsup: 5.12.1
   typescript: 4.6.2
 
@@ -19,14 +19,14 @@ dependencies:
 
 devDependencies:
   '@changesets/cli': 2.21.1
-  '@hfcjoy/eslint-config-typescript': 2.0.1_3a533fa6cc3da0cf8525ef55d41c4384
+  '@hfcjoy/eslint-config-typescript': 2.0.1_3608a1c62a7ca373b5b0ee5cbbe3173c
   '@types/node': 17.0.21
   deepmerge: 4.2.2
   eslint: 8.10.0
   jest: 27.5.1
   joycon: 3.1.1
   json5: 2.2.0
-  prettier: 2.5.1
+  prettier: 2.6.0
   tsup: 5.12.1_typescript@4.6.2
   typescript: 4.6.2
 
@@ -586,7 +586,7 @@ packages:
       - supports-color
     dev: true
 
-  /@hfcjoy/eslint-config-common/2.0.0_eslint@8.10.0+prettier@2.5.1:
+  /@hfcjoy/eslint-config-common/2.0.0_eslint@8.10.0+prettier@2.6.0:
     resolution: {integrity: sha512-wflu+H2bl8jPQGVcDcxBgHaW+8GUAHhOF/EzsQ71l51DOUZSDJSt+yfJev5vhPczdYRrzp03EzSB7B6Z53SO5w==}
     peerDependencies:
       eslint: '>=7'
@@ -599,30 +599,30 @@ packages:
       eslint-plugin-import: 2.25.4_eslint@8.10.0
       eslint-plugin-jsdoc: 37.9.7_eslint@8.10.0
       eslint-plugin-jsonc: 2.2.1_eslint@8.10.0
-      eslint-plugin-prettier: 4.0.0_f3d13a703a9c1079e3d1af6044603beb
+      eslint-plugin-prettier: 4.0.0_eff241c09b04add26f793c28a293b227
       eslint-plugin-unicorn: 38.0.1_eslint@8.10.0
       eslint-plugin-yml: 0.11.0_eslint@8.10.0
       jsonc-eslint-parser: 2.1.0
-      prettier: 2.5.1
+      prettier: 2.6.0
       yaml-eslint-parser: 0.5.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@hfcjoy/eslint-config-typescript/2.0.1_3a533fa6cc3da0cf8525ef55d41c4384:
+  /@hfcjoy/eslint-config-typescript/2.0.1_3608a1c62a7ca373b5b0ee5cbbe3173c:
     resolution: {integrity: sha512-LbsQegpUNDRbuNW3rvYWom7zZz/FM03/OXAankmqCQGxr1mzr5hk4qlCeuSJ9tOF39ZcFKhlh7ncf1qrnt+XBA==}
     peerDependencies:
       eslint: '>=7'
       prettier: '>=2'
       typescript: '>=3.5'
     dependencies:
-      '@hfcjoy/eslint-config-common': 2.0.0_eslint@8.10.0+prettier@2.5.1
+      '@hfcjoy/eslint-config-common': 2.0.0_eslint@8.10.0+prettier@2.6.0
       '@typescript-eslint/eslint-plugin': 5.14.0_f4054b8c3cd621db16ae1b9d571bccc0
       '@typescript-eslint/parser': 5.14.0_eslint@8.10.0+typescript@4.6.2
       eslint: 8.10.0
       eslint-config-prettier: 8.5.0_eslint@8.10.0
-      eslint-plugin-prettier: 4.0.0_f3d13a703a9c1079e3d1af6044603beb
-      prettier: 2.5.1
+      eslint-plugin-prettier: 4.0.0_eff241c09b04add26f793c28a293b227
+      prettier: 2.6.0
       typescript: 4.6.2
     transitivePeerDependencies:
       - supports-color
@@ -2228,7 +2228,7 @@ packages:
       natural-compare: 1.4.0
     dev: true
 
-  /eslint-plugin-prettier/4.0.0_f3d13a703a9c1079e3d1af6044603beb:
+  /eslint-plugin-prettier/4.0.0_eff241c09b04add26f793c28a293b227:
     resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==}
     engines: {node: '>=6.0.0'}
     peerDependencies:
@@ -2241,7 +2241,7 @@ packages:
     dependencies:
       eslint: 8.10.0
       eslint-config-prettier: 8.5.0_eslint@8.10.0
-      prettier: 2.5.1
+      prettier: 2.6.0
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -4206,8 +4206,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier/2.5.1:
-    resolution: {integrity: sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==}
+  /prettier/2.6.0:
+    resolution: {integrity: sha512-m2FgJibYrBGGgQXNzfd0PuDGShJgRavjUoRCw1mZERIWVSXF0iLzLm+aOqTAbLnC3n6JzUhAA8uZnFVghHJ86A==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
