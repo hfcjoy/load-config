@@ -46,7 +46,7 @@
     "@hfcjoy/eslint-config-typescript": "2.0.1",
     "@types/node": "17.0.21",
     "deepmerge": "4.2.2",
-    "eslint": "8.10.0",
+    "eslint": "8.11.0",
     "jest": "27.5.1",
     "joycon": "3.1.1",
     "json5": "2.2.0",
