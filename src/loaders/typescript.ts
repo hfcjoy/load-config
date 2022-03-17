@@ -2,6 +2,8 @@ import type { AsyncLoader } from 'joycon'
 import esbuild from 'esbuild'
 import vm from 'vm'
 import Module from 'module'
+import path from 'path'
+import { findDependencies } from '../utils'
 
 export function useTypescriptLoader(): AsyncLoader {
   return {
@@ -18,12 +20,18 @@ export function useTypescriptLoader(): AsyncLoader {
 export async function compileTypescriptData(
   tsFilePath: string
 ): Promise<unknown> {
+  const installedLibraries = await findDependencies(
+    path.join(process.cwd(), 'package.json')
+  )
+
   const buildResult = await esbuild.build({
     entryPoints: [tsFilePath],
     write: false,
     bundle: true,
     format: 'cjs',
-    target: 'node10'
+    target: 'node10',
+    external: Object.keys(installedLibraries),
+    platform: 'node'
   })
 
   const content = buildResult.outputFiles?.[0]?.contents

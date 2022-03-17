@@ -8,5 +8,6 @@ export default defineConfig({
   minify: true,
   dts: true,
   external: ['esbuild'],
-  format: ['cjs', 'esm']
+  format: ['cjs', 'esm'],
+  platform: 'node'
 })
