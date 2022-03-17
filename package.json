@@ -1,6 +1,6 @@
 {
   "name": "@hfcjoy/load-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "可拓展的支持各种格式配置文件的数据加载",
   "publishConfig": {
     "access": "public",
